@@ -8,7 +8,7 @@ namespace UserManager.Models
 {
     public class UserDataAccessLayer
     {
-        myTestDBContext db = new myTestDBContext();
+        ProjectManDBContext db = new ProjectManDBContext();
 
         public IEnumerable<TblUser> GetAllUsers()
         {

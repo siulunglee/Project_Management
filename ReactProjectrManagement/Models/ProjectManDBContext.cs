@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace UserManager.Models
 {
-    public partial class myTestDBContext : DbContext
+    public partial class ProjectManDBContext : DbContext
     {
         public virtual DbSet<TblCities> TblCities { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
