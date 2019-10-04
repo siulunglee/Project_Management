@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UserManager.Models
+namespace ProjectManagement.Models
 {
     public partial class TblCities
     {

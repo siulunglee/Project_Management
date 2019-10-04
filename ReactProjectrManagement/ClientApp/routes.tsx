@@ -12,7 +12,7 @@ export const routes = <Layout>
     <Route path='/listuser' component={ListUser} />
     <Route path='/adduser' component={AddUser} />
     <Route path='/user/edit/:empid' component={AddUser} />
-    <Route path='/project' component={ListProject} />
+    <Route path='/listproject' component={ListProject} />
     <Route path='/addproject' component={AddProject} />
     <Route path='/project/edit/:projectid' component={AddProject} />
 </Layout>;

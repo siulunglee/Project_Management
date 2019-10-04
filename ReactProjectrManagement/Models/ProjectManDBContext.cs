@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace UserManager.Models
+namespace ProjectManagement.Models
 {
     public partial class ProjectManDBContext : DbContext
     {
         public virtual DbSet<TblCities> TblCities { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
+        public virtual DbSet<TblProject> TblProject { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -59,6 +60,35 @@ namespace UserManager.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TblProject>(entity =>
+            {
+                entity.HasKey(e => e.ProjectId);
+
+                entity.ToTable("tblProject");
+
+                entity.Property(e => e.ProjectId).HasColumnName("ProjectID");
+
+                entity.Property(e => e.Project_Name)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Project_Users_List_ID)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Template_ID)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Logos_ID)
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);

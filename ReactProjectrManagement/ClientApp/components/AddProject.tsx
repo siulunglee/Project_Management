@@ -7,14 +7,14 @@ interface AddProjectDataState {
     title: string;
     loading: boolean;
     cityList: Array<any>;
-    empData: ProjectData;
+    projectData: ProjectData;
 }
 
 export class AddProject extends React.Component<RouteComponentProps<{}>, AddProjectDataState> {
     constructor(props) {
         super(props);
 
-        this.state = { title: "", loading: true, cityList: [], empData: new ProjectData };
+        this.state = { title: "", loading: true, cityList: [], projectData: new ProjectData };
 
         fetch('api/Project/GetCityList')
             .then(response => response.json() as Promise<Array<any>>)
@@ -24,18 +24,18 @@ export class AddProject extends React.Component<RouteComponentProps<{}>, AddProj
 
         var projectid = this.props.match.params["projectid"];
 
-        // This will set state for Edit user
+        // This will set state for Edit project
         if (projectid > 0) {
             fetch('api/Project/Details/' + projectid)
                 .then(response => response.json() as Promise<ProjectData>)
                 .then(data => {
-                    this.setState({ title: "Edit", loading: false, empData: data });
+                    this.setState({ title: "Edit", loading: false, projectData: data });
                 });
         }
 
-        // This will set state for Add user
+        // This will set state for Add project
         else {
-            this.state = { title: "Create", loading: false, cityList: [], empData: new ProjectData };
+            this.state = { title: "Create", loading: false, cityList: [], projectData: new ProjectData };
         }
 
         // This binding is necessary to make "this" work in the callback
@@ -61,19 +61,19 @@ export class AddProject extends React.Component<RouteComponentProps<{}>, AddProj
         event.preventDefault();
         const data = new FormData(event.target);
 
-        // PUT request for Edit user.
-        if (this.state.empData.userId) {
+        // PUT request for Edit project.
+        if (this.state.projectData.projectId) {
             fetch('api/Project/Edit', {
                 method: 'PUT',
                 body: data,
 
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    this.props.history.push("/listuser");
+                    this.props.history.push("/listproject");
                 })
         }
 
-        // POST request for Add user.
+        // POST request for Add project.
         else {
             fetch('api/Project/Create', {
                 method: 'POST',
@@ -81,7 +81,7 @@ export class AddProject extends React.Component<RouteComponentProps<{}>, AddProj
 
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    this.props.history.push("/listuser");
+                    this.props.history.push("/listproject");
                 })
         }
     }
@@ -89,7 +89,7 @@ export class AddProject extends React.Component<RouteComponentProps<{}>, AddProj
     // This will handle Cancel button click event.
     private handleCancel(e) {
         e.preventDefault();
-        this.props.history.push("/listuser");
+        this.props.history.push("/listproject");
     }
 
     // Returns the HTML Form to the render() method.
@@ -97,41 +97,29 @@ export class AddProject extends React.Component<RouteComponentProps<{}>, AddProj
         return (
             <form onSubmit={this.handleSave} >
                 <div className="form-group row" >
-                    <input type="hidden" name="userId" value={this.state.empData.userId} />
+                    <input type="hidden" name="projectId" value={this.state.projectData.projectId} />
                 </div>
                 < div className="form-group row" >
                     <label className=" control-label col-md-12" htmlFor="Name">Name</label>
                     <div className="col-md-4">
-                        <input className="form-control" type="text" name="name" defaultValue={this.state.empData.name} required />
+                        <input className="form-control" type="text" name="name" defaultValue={this.state.projectData.name} required />
                     </div>
                 </div >
                 <div className="form-group row">
-                    <label className="control-label col-md-12" htmlFor="Gender">Gender</label>
+                    <label className="control-label col-md-12" htmlFor="Description">Description</label>
                     <div className="col-md-4">
-                        <select className="form-control" data-val="true" name="gender" defaultValue={this.state.empData.gender} required>
-                            <option value="">-- Select Gender --</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
+                        <div className="col-md-4">
+                            <input className="form-control" type="text" name="name" defaultValue={this.state.projectData.description} required />
+                        </div>
                     </div>
                 </div >
                 <div className="form-group row">
-                    <label className="control-label col-md-12" htmlFor="Department" >Department</label>
+                    <label className="control-label col-md-12" htmlFor="Template_ID" >templateID</label>
                     <div className="col-md-4">
-                        <input className="form-control" type="text" name="Department" defaultValue={this.state.empData.department} required />
+                        <input className="form-control" type="text" name="Department" defaultValue={this.state.projectData.templateID} required />
                     </div>
                 </div>
-                <div className="form-group row">
-                    <label className="control-label col-md-12" htmlFor="City">City</label>
-                    <div className="col-md-4">
-                        <select className="form-control" data-val="true" name="City" defaultValue={this.state.empData.city} required>
-                            <option value="">-- Select City --</option>
-                            {cityList.map(city =>
-                                <option key={city.cityId} value={city.cityName}>{city.cityName}</option>
-                            )}
-                        </select>
-                    </div>
-                </div >
+                
                 <div className="form-group">
                     <button type="submit" className="btn btn-default">Save</button>
                     <button className="btn" onClick={this.handleCancel}>Cancel</button>

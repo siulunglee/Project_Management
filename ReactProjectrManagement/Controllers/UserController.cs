@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UserManager.Models;
+using ProjectManagement.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 // https://developerlife.pl/en/upload-files-with-react-js-and-net-core-web-api/
 
-namespace UserManager.Controllers
+namespace ProjectManagement.Controllers
 {
     public class UserController : Controller
     {
-        UserDataAccessLayer objUser = new UserDataAccessLayer();
+        ProjectDataAccessLayer objUser = new ProjectDataAccessLayer();
 
         [HttpGet]
         [Route("api/User/Index")]

@@ -150,3 +150,18 @@ USE [master]
 GO
 ALTER DATABASE [User_DB] SET  READ_WRITE 
 GO
+
+
+CREATE TABLE [dbo].[tblProject](
+	[ProjectID] [int] NOT NULL,
+	[Project_Name] [varchar](35) NULL,
+	[Description] [varchar](35) NULL,
+	[CompanyID] [varchar](35) NULL,
+	[Project_Users_List_ID] [varchar](35) NULL,
+	[Template_ID] [varchar](35) NULL,
+	[Logos_ID] [varchar](35) NULL,
+ CONSTRAINT [PK_tblProjects_1] PRIMARY KEY CLUSTERED 
+(
+	[ProjectID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]

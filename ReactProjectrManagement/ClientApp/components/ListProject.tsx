@@ -33,7 +33,7 @@ export class ListProject extends React.Component<RouteComponentProps<{}>, ListPr
             <h1>Project Data</h1>
             <p>This component demonstrates fetching Project data from the server.</p>
             <p>
-                <Link to="/adduser">Create New</Link>
+                <Link to="/addProject">Create New</Link>
             </p>
             {contents}
         </div>;
@@ -50,7 +50,7 @@ export class ListProject extends React.Component<RouteComponentProps<{}>, ListPr
                 this.setState(
                     {
                         userProject: this.state.userProject.filter((rec) => {
-                            return (rec.userId != id);
+                            return (rec.projectId != id);
                         })
                     });
             });
@@ -75,17 +75,17 @@ export class ListProject extends React.Component<RouteComponentProps<{}>, ListPr
                 </tr>
             </thead>
             <tbody>
-                {userProject.map(emp =>
-                    <tr key={emp.userId}>
+                {userProject.map(project =>
+                    <tr key={project.projectId}>
                         <td></td>
-                        <td>{emp.userId}</td>
-                        <td>{emp.name}</td>
-                        <td>{emp.gender}</td>
-                        <td>{emp.department}</td>
-                        <td>{emp.city}</td>
+                        <td>{project.projectId}</td>
+                        <td>{project.name}</td>
+                        <td>{project.description}</td>
+                        <td>{project.templateID}</td>
+                        <td>{project.logoID}</td>
                         <td>
-                            <a className="action" onClick={(id) => this.handleEdit(emp.userId)}>Edit</a>  |
-                            <a className="action" onClick={(id) => this.handleDelete(emp.userId)}>Delete</a>
+                            <a className="action" onClick={(id) => this.handleEdit(project.projectId)}>Edit</a>  |
+                            <a className="action" onClick={(id) => this.handleDelete(project.projectId)}>Delete</a>
                         </td>
                     </tr>
                 )}
@@ -95,9 +95,9 @@ export class ListProject extends React.Component<RouteComponentProps<{}>, ListPr
 }
 
 export class ProjectData {
-    userId: number = 0;
+    projectId: number = 0;
     name: string = "";
-    gender: string = "";
-    city: string = "";
-    department: string = "";
+    description: string = "";
+    templateID: string = "";
+    logoID: string = "";
 } 
