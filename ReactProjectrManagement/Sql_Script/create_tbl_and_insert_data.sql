@@ -1,0 +1,152 @@
+﻿USE [master]
+GO
+/****** Object:  Database [User_DB]    Script Date: 2019-10-04 3:23:41 PM ******/
+CREATE DATABASE [User_DB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'User_DB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\User_DB.mdf' , SIZE = 4096KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'User_DB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\User_DB_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [User_DB] SET COMPATIBILITY_LEVEL = 120
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [User_DB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [User_DB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [User_DB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [User_DB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [User_DB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [User_DB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [User_DB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [User_DB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [User_DB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [User_DB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [User_DB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [User_DB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [User_DB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [User_DB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [User_DB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [User_DB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [User_DB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [User_DB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [User_DB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [User_DB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [User_DB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [User_DB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [User_DB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [User_DB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [User_DB] SET  MULTI_USER 
+GO
+ALTER DATABASE [User_DB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [User_DB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [User_DB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [User_DB] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [User_DB] SET DELAYED_DURABILITY = DISABLED 
+GO
+USE [User_DB]
+GO
+/****** Object:  Table [dbo].[tblCities]    Script Date: 2019-10-04 3:23:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCities](
+	[CityID] [int] IDENTITY(1,1) NOT NULL,
+	[CityName] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CityID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblProjects]    Script Date: 2019-10-04 3:23:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProjects](
+	[ProjectID] [int] NULL,
+	[Project_Name] [varchar](30) NULL,
+	[Company] [varchar](30) NULL,
+	[Category] [varchar](25) NULL,
+	[Project_User_List] [int] NULL,
+	[Project_Upload_List] [int] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblUser]    Script Date: 2019-10-04 3:23:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblUser](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](20) NOT NULL,
+	[City] [varchar](20) NOT NULL,
+	[Department] [varchar](20) NOT NULL,
+	[Gender] [varchar](6) NOT NULL,
+	[CompanyID] [int] NULL,
+	[User_Name] [varchar](30) NULL,
+	[User_Password] [varchar](50) NULL,
+	[User_Email] [varchar](75) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[tblCities] ON 
+GO
+INSERT [dbo].[tblCities] ([CityID], [CityName]) VALUES (1, N'Scarborough')
+GO
+INSERT [dbo].[tblCities] ([CityID], [CityName]) VALUES (2, N'East York')
+GO
+INSERT [dbo].[tblCities] ([CityID], [CityName]) VALUES (3, N'Toronto')
+GO
+INSERT [dbo].[tblCities] ([CityID], [CityName]) VALUES (4, N'Markham')
+GO
+INSERT [dbo].[tblCities] ([CityID], [CityName]) VALUES (5, N'Richmond Hill')
+GO
+SET IDENTITY_INSERT [dbo].[tblCities] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblUser] ON 
+GO
+INSERT [dbo].[tblUser] ([UserID], [Name], [City], [Department], [Gender], [CompanyID], [User_Name], [User_Password], [User_Email]) VALUES (1, N'Henry Lee', N'East York', N'Software Development', N'Male', 1, N'siulunglee', N'123234', N'siulunglee@yahoo.com')
+GO
+INSERT [dbo].[tblUser] ([UserID], [Name], [City], [Department], [Gender], [CompanyID], [User_Name], [User_Password], [User_Email]) VALUES (2, N'Order User', N'Toronto', N'Sale Dept', N'Female', 0, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[tblUser] OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [User_DB] SET  READ_WRITE 
+GO
